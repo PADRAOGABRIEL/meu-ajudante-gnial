@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ interface Chat {
   contexto: Array<{
     role: string;
     content: string;
+    timestamp?: string;
   }>;
 }
 
@@ -46,6 +47,15 @@ const ClinicCard = ({ clinica, onClick, isSelected = false }: ClinicCardProps) =
   const totalMessages = Object.values(clinica.chats || {}).reduce(
     (total, chat) => total + chat.contexto.length, 0
   );
+
+  // Crescimento fixo baseado no ID da clínica para não mudar aleatoriamente
+  const growthPercentage = useMemo(() => {
+    const hash = clinica.id.split('').reduce((a, b) => {
+      a = ((a << 5) - a) + b.charCodeAt(0);
+      return a & a;
+    }, 0);
+    return Math.abs(hash) % 25; // 0-24%
+  }, [clinica.id]);
 
   const getUsageColor = () => {
     if (usagePercentage >= 90) return "text-warning";
@@ -154,7 +164,7 @@ const ClinicCard = ({ clinica, onClick, isSelected = false }: ClinicCardProps) =
           <div className="text-center p-2 rounded-lg bg-muted/20">
             <div className="flex items-center justify-center gap-1 text-secondary">
               <TrendingUp className="w-3 h-3" />
-              <span className="text-xs font-medium">+{Math.floor(Math.random() * 20)}%</span>
+              <span className="text-xs font-medium">+{growthPercentage}%</span>
             </div>
             <div className="text-xs text-muted-foreground mt-1">Crescimento</div>
           </div>

@@ -25,6 +25,7 @@ interface Chat {
   contexto: Array<{
     role: string;
     content: string;
+    timestamp?: string;
   }>;
 }
 
@@ -75,16 +76,16 @@ const Dashboard = () => {
             chats: {
               "5511987654321": {
                 contexto: [
-                  { role: "user", content: "Quero marcar uma consulta" },
-                  { role: "assistant", content: "Claro! Qual dia seria melhor para você?" },
-                  { role: "user", content: "Amanhã à tarde pode ser?" },
-                  { role: "assistant", content: "Temos às 15h ou 16h disponíveis." }
+                  { role: "user", content: "Quero marcar uma consulta", timestamp: "2025-07-24T10:12:00" },
+                  { role: "assistant", content: "Claro! Qual dia seria melhor para você?", timestamp: "2025-07-24T10:13:00" },
+                  { role: "user", content: "Amanhã à tarde pode ser?", timestamp: "2025-07-24T10:15:00" },
+                  { role: "assistant", content: "Temos às 15h ou 16h disponíveis.", timestamp: "2025-07-24T10:16:00" }
                 ]
               },
               "5511987000000": {
                 contexto: [
-                  { role: "user", content: "Quais convênios aceitam?" },
-                  { role: "assistant", content: "Aceitamos Amil, Bradesco, e Unimed." }
+                  { role: "user", content: "Quais convênios aceitam?", timestamp: "2025-07-23T09:30:00" },
+                  { role: "assistant", content: "Aceitamos Amil, Bradesco, e Unimed.", timestamp: "2025-07-23T09:31:00" }
                 ]
               }
             }
@@ -98,14 +99,14 @@ const Dashboard = () => {
             chats: {
               "5521977777777": {
                 contexto: [
-                  { role: "user", content: "Vocês atendem plano de saúde?" },
-                  { role: "assistant", content: "Sim! Atendemos Unimed, Amil e SulAmérica." }
+                  { role: "user", content: "Vocês atendem plano de saúde?", timestamp: "2025-07-23T17:44:00" },
+                  { role: "assistant", content: "Sim! Atendemos Unimed, Amil e SulAmérica.", timestamp: "2025-07-23T17:45:00" }
                 ]
               },
               "5521966666666": {
                 contexto: [
-                  { role: "user", content: "Onde fica localizada a clínica?" },
-                  { role: "assistant", content: "Estamos na Av. Central, 123 - Centro." }
+                  { role: "user", content: "Onde fica localizada a clínica?", timestamp: "2025-07-23T18:00:00" },
+                  { role: "assistant", content: "Estamos na Av. Central, 123 - Centro.", timestamp: "2025-07-23T18:01:00" }
                 ]
               }
             }
@@ -119,20 +120,20 @@ const Dashboard = () => {
             chats: {
               "5521955555555": {
                 contexto: [
-                  { role: "user", content: "Preciso remarcar minha consulta" },
-                  { role: "assistant", content: "Claro, para qual data gostaria de reagendar?" }
+                  { role: "user", content: "Preciso remarcar minha consulta", timestamp: "2025-07-22T16:00:00" },
+                  { role: "assistant", content: "Claro, para qual data gostaria de reagendar?", timestamp: "2025-07-22T16:01:00" }
                 ]
               },
               "5521944444444": {
                 contexto: [
-                  { role: "user", content: "Qual o valor da consulta particular?" },
-                  { role: "assistant", content: "A consulta particular custa R$ 250,00." }
+                  { role: "user", content: "Qual o valor da consulta particular?", timestamp: "2025-07-22T17:30:00" },
+                  { role: "assistant", content: "A consulta particular custa R$ 250,00.", timestamp: "2025-07-22T17:31:00" }
                 ]
               },
               "5521933333333": {
                 contexto: [
-                  { role: "user", content: "Tem atendimento sábado?" },
-                  { role: "assistant", content: "Sim, atendemos até às 13h aos sábados." }
+                  { role: "user", content: "Tem atendimento sábado?", timestamp: "2025-07-22T19:10:00" },
+                  { role: "assistant", content: "Sim, atendemos até às 13h aos sábados.", timestamp: "2025-07-22T19:11:00" }
                 ]
               }
             }
