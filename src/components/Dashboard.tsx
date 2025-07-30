@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,65 +37,42 @@ interface Clinica {
   chats?: Record<string, Chat>;
 }
 
-// Mock data para demonstração
-const mockClinicas: Clinica[] = [
-  {
-    id: "clinica-01",
-    nome: "Clínica São João",
-    telefone: "(11) 99999-9999",
-    mensagens_usadas: 450,
-    limite_mensal: 1000,
-    chats: {
-      "Maria Silva": {
-        contexto: [
-          { role: "user", content: "Olá, estou com dor de cabeça há 3 dias" },
-          { role: "assistant", content: "Olá Maria! Sinto muito que esteja passando por isso. Pode me contar mais sobre sua dor? É constante ou vem e vai?" },
-          { role: "user", content: "É constante e piora à noite" },
-          { role: "assistant", content: "Entendo. Recomendo que agende uma consulta presencial para uma avaliação completa. Posso ajudar a agendar?" }
-        ]
-      },
-      "João Santos": {
-        contexto: [
-          { role: "user", content: "Preciso de informações sobre exames" },
-          { role: "assistant", content: "Claro! Que tipo de exame você precisa fazer?" },
-          { role: "user", content: "Exame de sangue de rotina" },
-          { role: "assistant", content: "Perfeito! Para exames de sangue, é necessário jejum de 12 horas. Gostaria de agendar?" }
-        ]
-      }
-    }
-  },
-  {
-    id: "clinica-02",
-    nome: "Medical Center",
-    telefone: "(11) 88888-8888",
-    mensagens_usadas: 890,
-    limite_mensal: 1000,
-    chats: {
-      "Ana Costa": {
-        contexto: [
-          { role: "user", content: "Boa tarde, gostaria de agendar uma consulta" },
-          { role: "assistant", content: "Boa tarde Ana! Será um prazer ajudar. Que especialidade você precisa?" }
-        ]
-      }
-    }
-  },
-  {
-    id: "clinica-03",
-    nome: "Clínica Vida",
-    telefone: "(11) 77777-7777",
-    mensagens_usadas: 120,
-    limite_mensal: 500,
-    chats: {}
-  }
-];
+
 
 const Dashboard = () => {
-  const [clinicas, setClinicas] = useState<Clinica[]>(mockClinicas);
+  const [clinicas, setClinicas] = useState<Clinica[]>([]);
   const [selectedClinica, setSelectedClinica] = useState<Clinica | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  // ✅ useEffect sempre DENTRO do componente
+  useEffect(() => {
+    const fetchClinicas = async () => {
+      try {
+        const res = await axios.get("http://localhost:8500/clinicas");
+        const dados = res.data.clinicas;
+
+        const lista: Clinica[] = Object.entries(dados).map(([id, info]) => ({
+          id,
+          ...(info as Omit<Clinica, 'id'>)
+        }));
+
+
+        setClinicas(lista);
+      } catch (error) {
+        console.error("Erro ao buscar clínicas:", error);
+        toast({
+          title: "Erro",
+          description: "Não foi possível carregar as clínicas",
+          variant: "destructive"
+        });
+      }
+    };
+
+    fetchClinicas();
+  }, [toast]);
 
   const filteredClinicas = clinicas.filter(clinica =>
     clinica.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||

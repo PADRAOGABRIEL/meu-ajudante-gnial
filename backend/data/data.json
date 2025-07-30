@@ -1,0 +1,143 @@
+{
+  "clinicas": {
+    "clinica_icarai": {
+      "nome": "Clínica Icaraí",
+      "telefone": "5521988888888",
+      "limite_mensal": 1000,
+      "mensagens_usadas": 432,
+      "chats": {
+        "5511987654321": {
+          "ultima_mensagem": "Quero marcar uma consulta",
+          "timestamp": "2025-07-24T10:12:00",
+          "contexto": [
+            {
+              "role": "user",
+              "content": "Quero marcar uma consulta"
+            },
+            {
+              "role": "assistant",
+              "content": "Claro! Qual dia seria melhor para você?"
+            },
+            {
+              "role": "user",
+              "content": "Amanhã à tarde pode ser?"
+            },
+            {
+              "role": "assistant",
+              "content": "Temos às 15h ou 16h disponíveis."
+            }
+          ]
+        },
+        "5511987000000": {
+          "ultima_mensagem": "Quais convênios aceitam?",
+          "timestamp": "2025-07-23T09:30:00",
+          "contexto": [
+            {
+              "role": "user",
+              "content": "Quais convênios aceitam?"
+            },
+            {
+              "role": "assistant",
+              "content": "Aceitamos Amil, Bradesco, e Unimed."
+            }
+          ]
+        }
+      }
+    },
+    "clinica_norte": {
+      "nome": "Clínica Norte",
+      "telefone": "5521999999999",
+      "limite_mensal": 2000,
+      "mensagens_usadas": 892,
+      "chats": {
+        "5521977777777": {
+          "ultima_mensagem": "Vocês atendem plano de saúde?",
+          "timestamp": "2025-07-23T17:44:00",
+          "contexto": [
+            {
+              "role": "user",
+              "content": "Vocês atendem plano de saúde?"
+            },
+            {
+              "role": "assistant",
+              "content": "Sim! Atendemos Unimed, Amil e SulAmérica."
+            }
+          ]
+        },
+        "5521966666666": {
+          "ultima_mensagem": "Onde fica localizada a clínica?",
+          "timestamp": "2025-07-23T18:00:00",
+          "contexto": [
+            {
+              "role": "user",
+              "content": "Onde fica localizada a clínica?"
+            },
+            {
+              "role": "assistant",
+              "content": "Estamos na Av. Central, 123 - Centro."
+            }
+          ]
+        }
+      }
+    },
+    "clinica_sul": {
+      "nome": "Clínica Sul",
+      "telefone": "5521961234567",
+      "limite_mensal": 1500,
+      "mensagens_usadas": 1050,
+      "chats": {
+        "5521955555555": {
+          "ultima_mensagem": "Preciso remarcar minha consulta",
+          "timestamp": "2025-07-22T16:00:00",
+          "contexto": [
+            {
+              "role": "user",
+              "content": "Preciso remarcar minha consulta"
+            },
+            {
+              "role": "assistant",
+              "content": "Claro, para qual data gostaria de reagendar?"
+            }
+          ]
+        },
+        "5521944444444": {
+          "ultima_mensagem": "Qual o valor da consulta particular?",
+          "timestamp": "2025-07-22T17:30:00",
+          "contexto": [
+            {
+              "role": "user",
+              "content": "Qual o valor da consulta particular?"
+            },
+            {
+              "role": "assistant",
+              "content": "A consulta particular custa R$ 250,00."
+            }
+          ]
+        },
+        "5521933333333": {
+          "ultima_mensagem": "Tem atendimento sábado?",
+          "timestamp": "2025-07-22T19:10:00",
+          "contexto": [
+            {
+              "role": "user",
+              "content": "Tem atendimento sábado?"
+            },
+            {
+              "role": "assistant",
+              "content": "Sim, atendemos até às 13h aos sábados."
+            }
+          ]
+        }
+      }
+    },
+    "clin_nikity": {
+      "nome": "Nikity Dental",
+      "telefone": "5521969360654",
+      "prompt": "Voce é o assistente virtual de um clinica odontologica",
+      "limite_mensal": 1000,
+      "mensagens_usadas": 0,
+      "ativo": true,
+      "chats": {}
+    }
+  }
+}

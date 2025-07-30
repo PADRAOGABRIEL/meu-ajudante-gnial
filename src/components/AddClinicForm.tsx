@@ -14,6 +14,8 @@ import {
   Sparkles,
   X
 } from 'lucide-react';
+import axios from "axios";
+
 
 interface AddClinicFormProps {
   onClose: () => void;
@@ -33,7 +35,7 @@ const AddClinicForm = ({ onClose, onSuccess }: AddClinicFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.id || !formData.nome || !formData.telefone || !formData.prompt) {
       toast({
         title: "Erro",
@@ -44,20 +46,23 @@ const AddClinicForm = ({ onClose, onSuccess }: AddClinicFormProps) => {
     }
 
     setIsLoading(true);
-    
+
     try {
-      // Simular API call (substituir pela chamada real)
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      await axios.post("http://localhost:8000/clinicas", {
+        ...formData,
+        ativo: true  // ou permitir escolher no formulário no futuro
+      });
+
       toast({
         title: "Sucesso!",
         description: "Clínica adicionada com sucesso.",
         variant: "default"
       });
-      
+
       onSuccess();
       onClose();
     } catch (error) {
+      console.error("Erro ao criar clínica:", error);
       toast({
         title: "Erro",
         description: "Falha ao adicionar clínica. Tente novamente.",
@@ -67,6 +72,7 @@ const AddClinicForm = ({ onClose, onSuccess }: AddClinicFormProps) => {
       setIsLoading(false);
     }
   };
+
 
   const handleChange = (field: string, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
