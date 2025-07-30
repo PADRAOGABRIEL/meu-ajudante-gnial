@@ -26,6 +26,7 @@ interface Chat {
   contexto: Array<{
     role: string;
     content: string;
+    timestamp?: string;
   }>;
 }
 
@@ -52,13 +53,15 @@ const ClinicDetails = ({ clinica, onBack }: ClinicDetailsProps) => {
     (total, chat) => total + chat.contexto.length, 0
   );
 
-  const formatTime = (index: number) => {
-    const now = new Date();
-    const time = new Date(now.getTime() - (index * 5 * 60 * 1000)); // 5 min intervals
-    return time.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  const formatTime = (timestamp?: string) => {
+    if (timestamp) {
+      const date = new Date(timestamp);
+      return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
+    return "--:--";
   };
 
-  const ChatMessage = ({ message, index }: { message: any; index: number }) => {
+  const ChatMessage = ({ message }: { message: any }) => {
     const isUser = message.role === 'user';
     return (
       <div className={cn("flex gap-3 mb-4", isUser ? "justify-end" : "justify-start")}>
@@ -80,7 +83,7 @@ const ClinicDetails = ({ clinica, onBack }: ClinicDetailsProps) => {
             </div>
             <div className="text-xs text-muted-foreground flex items-center gap-1">
               <Clock className="w-3 h-3" />
-              {formatTime(index)}
+              {formatTime(message.timestamp)}
             </div>
           </div>
         </div>
@@ -250,7 +253,7 @@ const ClinicDetails = ({ clinica, onBack }: ClinicDetailsProps) => {
               {selectedChat && clinica.chats?.[selectedChat] ? (
                 <ScrollArea className="h-[400px] pr-4">
                   {clinica.chats[selectedChat].contexto.map((message, index) => (
-                    <ChatMessage key={index} message={message} index={index} />
+                    <ChatMessage key={index} message={message} />
                   ))}
                 </ScrollArea>
               ) : (
