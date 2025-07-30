@@ -51,6 +51,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchClinicas = async () => {
       try {
+        // Tentativa de buscar do backend primeiro
         const res = await axios.get("http://localhost:8500/clinicas");
         const dados = res.data.clinicas;
 
@@ -59,14 +60,98 @@ const Dashboard = () => {
           ...(info as Omit<Clinica, 'id'>)
         }));
 
-
         setClinicas(lista);
       } catch (error) {
-        console.error("Erro ao buscar clínicas:", error);
+        console.log("Backend não disponível, carregando dados mock...");
+        
+        // Dados mock baseados no arquivo backend/data/data.json
+        const mockData: Clinica[] = [
+          {
+            id: "clinica_icarai",
+            nome: "Clínica Icaraí",
+            telefone: "5521988888888",
+            mensagens_usadas: 432,
+            limite_mensal: 1000,
+            chats: {
+              "5511987654321": {
+                contexto: [
+                  { role: "user", content: "Quero marcar uma consulta" },
+                  { role: "assistant", content: "Claro! Qual dia seria melhor para você?" },
+                  { role: "user", content: "Amanhã à tarde pode ser?" },
+                  { role: "assistant", content: "Temos às 15h ou 16h disponíveis." }
+                ]
+              },
+              "5511987000000": {
+                contexto: [
+                  { role: "user", content: "Quais convênios aceitam?" },
+                  { role: "assistant", content: "Aceitamos Amil, Bradesco, e Unimed." }
+                ]
+              }
+            }
+          },
+          {
+            id: "clinica_norte",
+            nome: "Clínica Norte",
+            telefone: "5521999999999",
+            mensagens_usadas: 892,
+            limite_mensal: 2000,
+            chats: {
+              "5521977777777": {
+                contexto: [
+                  { role: "user", content: "Vocês atendem plano de saúde?" },
+                  { role: "assistant", content: "Sim! Atendemos Unimed, Amil e SulAmérica." }
+                ]
+              },
+              "5521966666666": {
+                contexto: [
+                  { role: "user", content: "Onde fica localizada a clínica?" },
+                  { role: "assistant", content: "Estamos na Av. Central, 123 - Centro." }
+                ]
+              }
+            }
+          },
+          {
+            id: "clinica_sul",
+            nome: "Clínica Sul",
+            telefone: "5521961234567",
+            mensagens_usadas: 1050,
+            limite_mensal: 1500,
+            chats: {
+              "5521955555555": {
+                contexto: [
+                  { role: "user", content: "Preciso remarcar minha consulta" },
+                  { role: "assistant", content: "Claro, para qual data gostaria de reagendar?" }
+                ]
+              },
+              "5521944444444": {
+                contexto: [
+                  { role: "user", content: "Qual o valor da consulta particular?" },
+                  { role: "assistant", content: "A consulta particular custa R$ 250,00." }
+                ]
+              },
+              "5521933333333": {
+                contexto: [
+                  { role: "user", content: "Tem atendimento sábado?" },
+                  { role: "assistant", content: "Sim, atendemos até às 13h aos sábados." }
+                ]
+              }
+            }
+          },
+          {
+            id: "clin_nikity",
+            nome: "Nikity Dental",
+            telefone: "5521969360654",
+            mensagens_usadas: 0,
+            limite_mensal: 1000,
+            chats: {}
+          }
+        ];
+
+        setClinicas(mockData);
+        
         toast({
-          title: "Erro",
-          description: "Não foi possível carregar as clínicas",
-          variant: "destructive"
+          title: "Modo Demonstração",
+          description: "Carregando dados de exemplo. Conecte o backend para dados reais.",
         });
       }
     };
