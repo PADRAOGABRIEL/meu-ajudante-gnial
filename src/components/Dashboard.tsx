@@ -20,6 +20,7 @@ import ClinicCard from './ClinicCard';
 import ClinicDetails from './ClinicDetails';
 import AddClinicForm from './AddClinicForm';
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 interface Chat {
   contexto: Array<{
@@ -47,6 +48,7 @@ const Dashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { user, signOut } = useAuth();
 
   // ✅ useEffect sempre DENTRO do componente
   useEffect(() => {
