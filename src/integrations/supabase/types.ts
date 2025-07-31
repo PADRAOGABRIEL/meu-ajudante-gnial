@@ -14,7 +14,133 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_agents: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          messages_used: number
+          monthly_limit: number
+          name: string
+          openai_model: string
+          phone_number: string
+          system_prompt: string
+          updated_at: string
+          user_id: string
+          whatsapp_token: string | null
+          whatsapp_verify_token: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          messages_used?: number
+          monthly_limit?: number
+          name: string
+          openai_model?: string
+          phone_number: string
+          system_prompt?: string
+          updated_at?: string
+          user_id: string
+          whatsapp_token?: string | null
+          whatsapp_verify_token?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          messages_used?: number
+          monthly_limit?: number
+          name?: string
+          openai_model?: string
+          phone_number?: string
+          system_prompt?: string
+          updated_at?: string
+          user_id?: string
+          whatsapp_token?: string | null
+          whatsapp_verify_token?: string | null
+        }
+        Relationships: []
+      }
+      conversations: {
+        Row: {
+          agent_id: string
+          contact_name: string | null
+          created_at: string
+          id: string
+          last_message_at: string
+          updated_at: string
+          whatsapp_phone: string
+        }
+        Insert: {
+          agent_id: string
+          contact_name?: string | null
+          created_at?: string
+          id?: string
+          last_message_at?: string
+          updated_at?: string
+          whatsapp_phone: string
+        }
+        Update: {
+          agent_id?: string
+          contact_name?: string | null
+          created_at?: string
+          id?: string
+          last_message_at?: string
+          updated_at?: string
+          whatsapp_phone?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversations_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "ai_agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+          message_type: string
+          metadata: Json | null
+          role: string
+          whatsapp_message_id: string | null
+        }
+        Insert: {
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          message_type?: string
+          metadata?: Json | null
+          role: string
+          whatsapp_message_id?: string | null
+        }
+        Update: {
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          message_type?: string
+          metadata?: Json | null
+          role?: string
+          whatsapp_message_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
